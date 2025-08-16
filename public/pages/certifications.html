@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+</head>
+<body>
+    <canvas id="rainCanvas"></canvas>
+    <canvas id="dotsCanvas"></canvas>
+
+    <label class="switch">
+      <span class="label-text"></span>
+      <input type="checkbox" id="darkModeSwitch"  placeholder="dark" />
+      <span class="slider round"></span>
+    </label>
+
+    <div class="content-wrapper" id="Content-wrapper">
+      <a href="../images/Shiva_Rama_Krishna-Software_Engineer.pdf" id="download-button" download>
+        <button class="btn"><i class="fa fa-download"></i> Download</button>
+      </a>
+       <div id="dropdown-menu">
+        <button class="menu-button" onclick="toggleMenu(this)">☰</button>
+        <div id="menu-content" class="menu-content">
+          <a href="/index.html" class="menu-Elements">Home</a>
+          <a href="/pages/skills" class="menu-Elements">Skills</a>
+          <a href="/pages/projects" class="menu-Elements">Projects</a>
+          <a href="/pages/experience" class="menu-Elements" >Experience</a>
+          <a href="/pages/Achievements" class="menu-Elements">Achievements</a>
+          <a href="/pages/certifications" class="menu-Elements">Certifications</a>
+          <a href="/pages/interests" class="menu-Elements">Interests</a>
+          <a href="/pages/Contact" class="menu-Elements">Contact</a>
+        </div>
+      </div>
+
+      <div id="my-profile" class="menu-options">
+        <!-- <img
+          src="/file/1"
+          alt="Profile Image"
+           -->
+        <!-- <img src="/file/1" alt="Profile Picture" id="profile-image" /> -->
+        <img src="/images/myprofile.jpg" alt="Profile Picture" onclick="window.location.href='/index.html';" id="profile-image" />
+
+        <span
+          class="upload-btn"
+          onclick="window.location.href='/public';"
+        >
+          <i class="fas fa-plus"></i>
+        </span>
+
+        <!-- <div id="profile-image"> -->
+
+        <!-- </div> -->
+        <h1 id="username">Kurra Shiva Rama Krishna</h1>
+        <p id="bio">
+          A passionate software developer with a keen interest in web
+          technologies and a strong foundation in computer science principles.
+        </p>
+        <p id="location">Location: Middlesbrough, England</p>
+        </div>
+    <section id="certifications" class="menu-options">
+  <h2>My Certifications</h2>
+  <div class="certifications-grid">
+    <div class="cert-box">Duolingo English Test</div>
+    <div class="cert-box">IELTS</div>
+    <div class="cert-box">GRE</div>
+    <div class="cert-box">Coursera – Full-Stack Developer</div>
+    <div class="cert-box">freeCodeCamp – Web Design</div>
+    <div class="cert-box">Udemy – Node.js API</div>
+    <div class="cert-box">AI & ML with Python</div>
+    <div class="cert-box">(Planned) CompTIA Security+</div>
+    <div class="cert-box">(Planned) CEH</div>
+    <div class="cert-box">(Planned) TensorFlow Developer</div>
+  </div>
+</section>
+
+    
+    </div>
+  </body>
+      <script src="/script.js"></script>
+      <!-- <script src="/server.js"></script> -->
+      
+</html>

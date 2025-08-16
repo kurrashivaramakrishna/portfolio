@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script>
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+    }
+  </script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+  <header class="bg-gray-100 dark:bg-gray-800 p-4 shadow-md flex justify-between items-center">
+    <h1 class="text-2xl font-bold">My Developer Portfolio</h1>
+    <button onclick="toggleDarkMode()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition">Toggle Theme</button>
+  </header>
+
+  <main class="p-6 space-y-10">
+    <section class="text-center">
+      <img id="profileImage" src="/uploads/default.jpg" alt="Profile Picture" class="w-32 h-32 mx-auto rounded-full shadow" />
+      <h2 class="text-3xl font-semibold mt-4">Hi, I'm [Your Name]</h2>
+      <p class="text-gray-600 dark:text-gray-400">Full Stack Developer | Node.js | React | MySQL</p>
+    </section>
+
+    <section>
+      <h3 class="text-xl font-semibold mb-4">📂 Projects</h3>
+      <div id="projectList" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Dynamically loaded -->
+      </div>
+    </section>
+
+    <section>
+      <h3 class="text-xl font-semibold mb-4">📜 Certifications</h3>
+      <div id="certList" class="flex flex-wrap gap-4">
+        <!-- Dynamically loaded -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="text-center p-4 mt-10 border-t dark:border-gray-700">
+    &copy; 2025 My Portfolio. All rights reserved.
+  </footer>
+
+  <script>
+    async function loadProjects() {
+      const res = await fetch('/api/projects');
+      const projects = await res.json();
+      const container = document.getElementById('projectList');
+      container.innerHTML = projects.map(p => `
+        <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
+          <img src="${p.image}" alt="${p.title}" class="w-full h-40 object-cover rounded mb-2">
+          <h4 class="text-lg font-semibold">${p.title}</h4>
+          <p class="text-sm text-gray-500 dark:text-gray-400">${p.description}</p>
+          <a href="${p.github}" class="text-blue-500 hover:underline" target="_blank">GitHub</a>
+          <span class="ml-2">|</span>
+          <a href="${p.live}" class="text-green-500 hover:underline" target="_blank">Live</a>
+        </div>
+      `).join('');
+    }
+
+    async function loadCertificates() {
+      const res = await fetch('/api/certificates');
+      const certs = await res.json();
+      const container = document.getElementById('certList');
+      container.innerHTML = certs.map(c => `
+        <a href="${c.file}" target="_blank" class="w-32 h-32">
+          <img src="${c.thumbnail}" alt="${c.name}" class="w-full h-full object-cover rounded shadow">
+        </a>
+      `).join('');
+    }
+
+    loadProjects();
+    loadCertificates();
+  </script>
+</body>
+</html>

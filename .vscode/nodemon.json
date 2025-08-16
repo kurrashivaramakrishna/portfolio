@@ -1,0 +1,10 @@
+{
+  "watch": [
+    "server",
+    "public"
+  ],
+  "ext": "js,html,css",
+  "execMap": {
+    "js": "node"
+  }
+}

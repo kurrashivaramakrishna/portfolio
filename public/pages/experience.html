@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+</head>
+  <body>
+    <canvas id="rainCanvas"></canvas>
+    <canvas id="dotsCanvas"></canvas>
+
+    <label class="switch">
+      <span class="label-text"></span>
+      <input type="checkbox" id="darkModeSwitch"  placeholder="dark"/>
+      <span class="slider round"></span>
+    </label>
+
+    <div class="content-wrapper" id="Content-wrapper">
+      <a href="../images/Shiva_Rama_Krishna-Software_Engineer.pdf" id="download-button" download>
+        <button class="btn"><i class="fa fa-download"></i> Download</button>
+      </a>
+       <div id="dropdown-menu">
+        <button class="menu-button" onclick="toggleMenu(this)">☰</button>
+        <div id="menu-content" class="menu-content">
+          <a href="/index.html" class="menu-Elements">Home</a>
+          <a href="/pages/skills" class="menu-Elements">Skills</a>
+          <a href="/pages/projects" class="menu-Elements">Projects</a>
+          <a href="/pages/experience" class="menu-Elements" >Experience</a>
+          <a href="/pages/Achievements" class="menu-Elements">Achievements</a>
+          <a href="/pages/certifications" class="menu-Elements">Certifications</a>
+          <a href="/pages/interests" class="menu-Elements">Interests</a>
+          <a href="/pages/Contact" class="menu-Elements">Contact</a>
+        </div>
+      </div>
+
+      <div id="my-profile" class="menu-options">
+        <!-- <img
+          src="/file/1"
+          alt="Profile Image"
+           -->
+        <!-- <img src="/file/1" alt="Profile Picture" id="profile-image" /> -->
+                <img src="/images/myprofile.jpg" alt="Profile Picture"  onclick="window.location.href='/index.html';" id="profile-image" />
+
+        <span
+          class="upload-btn"
+          onclick="window.location.href='/pages/upload.html';"
+        >
+          <i class="fas fa-plus"></i>
+        </span>
+
+        <!-- <div id="profile-image"> -->
+
+        <!-- </div> -->
+        <h1 id="username">Kurra Shiva Rama Krishna</h1>
+        <p id="bio">
+          A passionate software developer with a keen interest in web
+          technologies and a strong foundation in computer science principles.
+        </p>
+        <p id="location">Location: Middlesbrough, England</p>
+        <p id="motive">
+          Detail-oriented and highly motivated Full Stack Developer and AI
+          Innovator with a strong academic background and a practical mindset.
+          Adept at designing, building, and deploying scalable applications
+          across web, mobile, and AI domains. Demonstrated experience in
+          delivering high-impact projects from scratch, using modern frameworks
+          and design patterns. Proven ability to bridge the gap between user
+          needs and software solutions. Actively seeking a Tier 2 Sponsorship
+          role in the UK to contribute to innovative teams and deliver
+          measurable results.
+        </p>
+      </div>
+      <div class="menu-options">
+  <section id="professional-experience">
+    <h2>Professional Experience</h2>
+
+    <article class="job">
+      <h3>Chef &amp; Kitchen Manager</h3>
+      <p><strong>Hadleys Restaurant, Whitby, UK — Sept 2023 to Present</strong></p>
+      <ul>
+        <li>Promoted from Chef to Manager; overseeing daily kitchen operations, staff scheduling, and inventory management.</li>
+        <li>Implemented workflow improvements, reducing preparation time and improving customer satisfaction.</li>
+        <li>Currently sponsored for a UK Skilled Worker visa with a £30,000 annual salary.</li>
+      </ul>
+    </article>
+
+    <article class="job">
+      <h3>Chef</h3>
+      <p><strong>Licensed Restaurant, UK — Sept 2023 to Mid 2024</strong></p>
+      <ul>
+        <li>Prepared diverse menu items with attention to quality, speed, and presentation.</li>
+        <li>Trained junior staff in food safety, kitchen hygiene, and recipe execution.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section id="academic-projects">
+    <h2>Academic Projects</h2>
+
+    <article class="project">
+      <h3>Real-Time Object Detection for Autonomous Vehicles (Master’s Project)</h3>
+      <ul>
+        <li>Designed and implemented a detection system using YOLOv8 &amp; YOLOv11 for pedestrians, vehicles, and road signs.</li>
+        <li>Integrated deep learning techniques (CNNs) for high accuracy in low-light and adverse weather conditions.</li>
+        <li>Optimized model for speed and adaptability for self-driving car integration.</li>
+      </ul>
+    </article>
+
+    <article class="project">
+      <h3>AI-Based Snake Game (Bachelor’s Project)</h3>
+      <ul>
+        <li>Developed an AI Snake game using Python, Pygame, and reinforcement learning (DQN) with PyTorch.</li>
+        <li>Implemented reward-based training for intelligent movement and decision-making.</li>
+      </ul>
+    </article>
+
+    <article class="project">
+      <h3>Java-Based Stock Control Application (Bachelor’s Project)</h3>
+      <ul>
+        <li>Built an inventory management tool using Java Swing and OOP principles.</li>
+        <li>Applied Observer and Adapter design patterns for modularity and scalability.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section id="personal-projects">
+    <h2>Personal / Independent Projects</h2>
+
+    <article class="project">
+      <h3>Full-Stack Developer Portfolio</h3>
+      <ul>
+        <li>Built with Node.js, Express, MySQL, and Multer, featuring authentication, profile picture upload, and modular pages.</li>
+        <li>Integrated REST APIs and deployed using HTML, CSS, and JavaScript.</li>
+      </ul>
+    </article>
+
+    <article class="project">
+      <h3>React + Vite Full-Stack Login System</h3>
+      <ul>
+        <li>Created a login/signup SPA using React, Axios, Node.js, and MySQL.</li>
+        <li>Implemented secure authentication with JWT and environment variables.</li>
+      </ul>
+    </article>
+
+    <article class="project">
+      <h3>Supabase Full-Stack Integration</h3>
+      <ul>
+        <li>Developed a Node.js backend using Supabase SQL database for authentication, image storage, and API integration.</li>
+        <li>Connected frontend (Netlify) with backend (Render) and Supabase services.</li>
+      </ul>
+    </article>
+
+    <article class="project">
+      <h3>Career Quiz Android App</h3>
+      <ul>
+        <li>Developed in Kotlin with Android Studio to guide users toward suitable career paths.</li>
+        <li>Integrated multiple-choice quizzes with personalized results.</li>
+      </ul>
+    </article>
+
+    <article class="project">
+      <h3>AI-based Malaria Detection App</h3>
+      <ul>
+        <li>Built with Flask and CNN to classify malaria-infected vs. healthy blood cell images.</li>
+        <li>Achieved high accuracy using preprocessed datasets.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section id="business-ideas">
+    <h2>Business &amp; Startup Ideas</h2>
+    <ul>
+      <li>Ride-sharing platform for Indian students in the UK to connect drivers with passengers for intercity travel and temporary work commutes.</li>
+      <li>Business progress analytics platform for UK cities to track and compare sales performance over 5 years and identify focus products.</li>
+      <li>ECU-to-Mobile Diagnostic App for reading car error codes via mobile devices.</li>
+    </ul>
+  </section>
+
+  <section id="other-skills">
+    <h2>Other Skills &amp; Experiences</h2>
+    <ul>
+      <li>Strong interest in stock market investments, ethical hacking, and cybersecurity (learning shell terminal hacking basics).</li>
+      <li>Experienced in deploying apps to Netlify, Render, and integrating Supabase.</li>
+      <li>Familiar with Vite + React, Node.js REST APIs, and MySQL database handling.</li>
+      <li>Creative website effects like animated welcome screens, rain effects, and interactive UI features.</li>
+      <li>Certifications: Duolingo, IELTS, GRE (English proficiency), and planned certifications from Coursera, freeCodeCamp, and Udemy for full-stack development.</li>
+    </ul>
+  </section>
+</div>
+
+    </div>
+  </body>
+  <script src="/script.js"></script>
+</html>
