@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        
+        body {
+            font-family: 'Inter', sans-serif;
+              color: black;
+              background-color: black;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    <canvas id="rainCanvas"></canvas>
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Join My Portfolio!</h2>
+        
+        <form action="/signup" method="POST">
+            <div class="mb-6">
+                <label for="name" class="block text-gray-700 text-sm font-semibold mb-2">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="John Doe"
+                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 ease-in-out"
+                       required>
+            </div>
+
+            <div class="mb-6">
+                <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com"
+                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 ease-in-out"
+                       required>
+            </div>
+            
+            <div class="mb-6">
+                <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••"
+                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 ease-in-out"
+                       required>
+            </div>
+
+            <!-- <div class="mb-6">
+                <label for="confirm-password" class="block text-gray-700 text-sm font-semibold mb-2">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="••••••••"
+                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 ease-in-out"
+                       required>
+            </div> -->
+            
+            <button type="submit"
+                    class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 ease-in-out shadow-md">
+                Sign Up
+            </button>
+        </form>
+        
+        <p class="text-center text-gray-600 text-sm mt-6">
+            Already have an account? 
+            <a href="signin.html" class="text-blue-600 hover:text-blue-800 font-semibold transition duration-200 ease-in-out">Login</a>
+        </p>
+    </div>
+</body>
+<script src="/script.js"></script>
+<script>
+    
+document.getElementById("signupForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const message = document.getElementById("message");
+
+    try {
+        const response = await fetch("/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ name, email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            message.textContent = "Signup successful!";
+            message.style.color = "green";
+            setTimeout(() => window.location.href = "/pages/login.html", 2000);
+        } else {
+            message.textContent = data.message;
+            message.style.color = "red";
+        }
+    } catch (err) {
+        message.textContent = "Server error during signup";
+        message.style.color = "red";
+    }
+});
+
+</script>
+</html>
+
+
+
+<!-- <form id="signupForm">
+  <input type="text" name="name" placeholder="Full Name" required><br>
+  <input type="email" name="email" placeholder="Email" required><br>
+  <input type="password" name="password" placeholder="Password" required><br>
+  <button type="submit">Sign Up</button>
+</form>
+
+<script>
+  document.getElementById('signupForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const name = this.name.value;
+    const email = this.email.value;
+    const password = this.password.value;
+
+    const res = await fetch('http://localhost:3000/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password })
+    });
+
+    const data = await res.json();
+    alert(data.message);
+  });
+</script> -->

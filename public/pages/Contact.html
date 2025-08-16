@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://usaaehixgdgaqbwwcjeo.supabase.co/storage/v1/object/public/my-website/public/css/style.css"
+    />
+
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+
+
+    </style>
+
+    <title>Shiva Rama Krishna | Full Stack Developer</title>
+  </head>
+  <body>
+    <canvas id="rainCanvas"></canvas>
+    <canvas id="dotsCanvas"></canvas>
+
+    <label class="switch">
+      <span class="label-text"></span>
+      <input type="checkbox" id="darkModeSwitch" placeholder="modes" />
+      <span class="slider round"></span>
+    </label>
+
+    <div class="content-wrapper" id="Content-wrapper">
+      <a
+        href="/images/Shiva_Rama_Krishna-Software_Engineer.pdf"
+        id="download-button"
+        download
+      >
+        <button class="btn"><i class="fa fa-download"></i> Download</button>
+      </a>
+      <div id="dropdown-menu">
+        <button class="menu-button" onclick="toggleMenu(this)">☰</button>
+        <div id="menu-content" class="menu-content">
+          <a href="/index.html" class="menu-Elements">Home</a>
+          <a href="/pages/skills" class="menu-Elements">Skills</a>
+          <a href="/pages/projects" class="menu-Elements">Projects</a>
+          <a href="/pages/experience" class="menu-Elements" >Experience</a>
+          <a href="/pages/Achievements" class="menu-Elements">Achievements</a>
+          <a href="/pages/certifications" class="menu-Elements">Certifications</a>
+          <a href="/pages/interests" class="menu-Elements">Interests</a>
+          <a href="/pages/Contact" class="menu-Elements">Contact</a>
+        </div>
+      </div>
+
+      <div id="my-profile" class="menu-options">
+        <!-- <img
+          src="/file/1"
+          alt="Profile Image"
+           -->
+        <img
+          src="/images/myprofile.jpg"
+          alt="Profile Picture"
+          onclick="window.location.href='/index.html';"
+          id="profile-image"
+        />
+
+        <span
+          class="upload-btn"
+          onclick="window.location.href='/pages/signin';"
+        >
+          <i class="fas fa-plus"></i>
+        </span>
+
+        <!-- <div id="profile-image"> -->
+
+        <!-- </div> -->
+        <h1 id="username">Kurra Shiva Rama Krishna</h1>
+        <p id="bio">
+          A passionate software developer with a keen interest in web
+          technologies and a strong foundation in computer science principles.
+        </p>
+        <p id="location">Location: Middlesbrough, England</p>
+        <p id="motive">
+          Detail-oriented and highly motivated Full Stack Developer and AI
+          Innovator with a strong academic background and a practical mindset.
+          Adept at designing, building, and deploying scalable applications
+          across web, mobile, and AI domains. Demonstrated experience in
+          delivering high-impact projects from scratch, using modern frameworks
+          and design patterns. Proven ability to bridge the gap between user
+          needs and software solutions. Actively seeking a Tier 2 Sponsorship
+          role in the UK to contribute to innovative teams and deliver
+          measurable results.
+        </p>
+      </div>
+      <section class="menu-options" aria-label="Contact form section">
+        <h1>Contact Me</h1>
+ <div class="container">
+                <h2>Let's build something great together.</h2>
+                <p>I'm currently seeking new opportunities as a full-stack developer. If you have a project in mind, a job opportunity, or just want to connect, please use the form below to get in touch!</p>
+                
+                <form action="YOUR_BACKEND_SCRIPT_URL" method="POST" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="6" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </section>
+        <section id="social-links-section" class="contact-section secondary-section">
+            <div class="container">
+                <h3>Other Ways to Connect</h3>
+                <div class="social-links">
+                    <a href="mailto:shivakrish2724262@gmail.com" class="social-link" title="Email me">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email me</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/shiva-rama-krishna-861a3916b"  class="social-link">
+                        <i class="fab fa-linkedin-in"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/kurrashivaramakrishna"  class="social-link"  >
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+  </body>
+  <script src="/script.js"></script>
+  <!-- <script src="/server.js"></script> -->
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+</head>
+<body>
+    <canvas id="rainCanvas"></canvas>
+    <canvas id="dotsCanvas"></canvas>
+
+    <label class="switch">
+      <span class="label-text"></span>
+      <input type="checkbox" id="darkModeSwitch" placeholder="lightmode"/>
+      <span class="slider round"></span>
+    </label>
+
+    <div class="content-wrapper" id="Content-wrapper">
+      <a href="/uploads/resume.pdf" id="download-button" download>
+        <button class="btn"><i class="fa fa-download"></i> Download</button>
+      </a>
+       <div id="dropdown-menu">
+        <button class="menu-button" onclick="toggleMenu(this)">☰</button>
+        <div id="menu-content" class="menu-content">
+          <a href="/index.html" class="menu-Elements">Home</a>
+          <a href="/pages/skills" class="menu-Elements">Skills</a>
+          <a href="/pages/projects" class="menu-Elements">Projects</a>
+          <a href="/pages/experience" class="menu-Elements" >Experience</a>
+          <a href="/pages/Achievements" class="menu-Elements">Achievements</a>
+          <a href="/pages/certifications" class="menu-Elements">Certifications</a>
+          <a href="/pages/interests" class="menu-Elements">Interests</a>
+          <a href="/pages/Contact" class="menu-Elements">Contact</a>
+        </div>
+      </div>
+
+      <div id="my-profile" class="menu-options">
+        <!-- <img
+          src="/file/1"
+          alt="Profile Image"
+           -->
+        <!-- <img src="/file/1" alt="Profile Picture" id="profile-image" /> -->
+                <img src="/images/myprofile.jpg" alt="Profile Picture" onclick="window.location.href='/index.html';" id="profile-image" />
+
+        <span
+          class="upload-btn"
+          onclick="window.location.href='/public';"
+        >
+          <i class="fas fa-plus"></i>
+        </span>
+
+        <!-- <div id="profile-image"> -->
+
+        <!-- </div> -->
+        <h1 id="username">Kurra Shiva Rama Krishna</h1>
+        <p id="bio">
+          A passionate software developer with a keen interest in web
+          technologies and a strong foundation in computer science principles.
+        </p>
+        <p id="location">Location: Middlesbrough, England</p>
+        </div>
+    <section id="projects" class="menu-options">
+      <h2>My Projects</h2>
+
+      <div class="project" class="menu-options">
+        <h3>AI-based Snake Game (Python, PyTorch)</h3>
+        <p>Built using Deep Q-Learning (DQN) in PyTorch.<br>Implemented reinforcement learning algorithms that made the snake learn by itself.<br><strong>Result:</strong> The AI learned optimal food-collection patterns.<br><strong>Future Scope:</strong> Extend to 3D game environments and multi-agent systems.</p>
+      </div>
+
+      <div class="project" class="menu-options">
+        <h3>Real-Time Object Detection for Autonomous Cars (YOLOv8/YOLOv11)</h3>
+        <p>Used YOLOv8 for detecting road signs, vehicles, and pedestrians.<br>Focused on low-light and bad weather adaptability.<br><strong>Result:</strong> Accurate, real-time object detection with <60ms response.<br><strong>Future Scope:</strong> Integrate with IoT devices for smart traffic systems.</p>
+      </div>
+
+      <div class="project" class="menu-options">
+        <h3>Full-Stack Portfolio Project</h3>
+        <p>Stack: Node.js, Express, MySQL, Multer, Supabase.<br>Features: User registration/login, file uploads, contact form, profile image.<br><strong>Result:</strong> A clean, dynamic portfolio used for job applications.<br><strong>Future Scope:</strong> Add live chat, project CMS, and recruiter analytics.</p>
+      </div>
+
+      <div class="project" class="menu-options">
+        <h3>Java Stock Management App</h3>
+        <p>Built with Java Swing, Observer Pattern, and OOP.<br><strong>Result:</strong> Efficient inventory tracking system.<br><strong>Future Scope:</strong> Upgrade to web-based dashboard using React + Java backend.</p>
+      </div>
+
+      <div class="project" class="menu-options">
+        <h3>Career Quiz Android App (Kotlin)</h3>
+        <p>Mobile app for students to find the right career path.<br>Used Android Studio and Kotlin with quiz logic.<br><strong>Future Scope:</strong> Add AI-based suggestions using user profile data.</p>
+      </div>
+
+</section>
+    </div>
+  </body>
+      <script src="/script.js"></script>
+      <!-- <script src="/server.js"></script> -->
+      
+</html>
