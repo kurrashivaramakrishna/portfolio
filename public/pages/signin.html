@@ -98,10 +98,10 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         const data = await response.json();
 
         if (response.ok) {
-            localStorage.setItem("token", data.token); // ✅ Store token
+            localStorage.setItem("token", data.token); // 
             message.textContent = "Login successful!";
             message.style.color = "green";
-            window.location.href = "/pages/dashboard.html"; // ✅ Redirect
+            window.location.href = "/pages/upload.html"; // 
         } else {
             message.textContent = data.message;
             message.style.color = "red";
@@ -115,7 +115,6 @@ document.getElementById("loginForm").addEventListener("submit", async function (
 
 </script>
 </html>
-
 
 <!-- 
 

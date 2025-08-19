@@ -346,7 +346,7 @@ input:checked + .slider:before {
 .tech-marquee {
   overflow: hidden;
   white-space: nowrap;
-  width: 100%;
+  width: 50%;
 }
 .tech-marquee i {
   color: rgb(0, 221, 255);
@@ -692,6 +692,19 @@ h1#heading {
 
 /* Specific mobile adjustments for fixed elements and layout */
 @media (max-width: 599px) {
+  
+  content-wrapper {
+    margin: 0 auto;       /* center it */
+    width: 100%;          /* allow full width */
+    max-width: none;      /* remove the limit */
+    padding: 75px;        /* add internal spacing */
+    box-sizing: border-box; /* ensures padding doesn't overflow */
+  }
+#my-profile,.menu-options,.tech-marquee{
+    margin-left: 10px;
+    width: 350px;
+  }
+
   .menu-content {
     top: 50px;
     left: 0;
@@ -704,7 +717,7 @@ h1#heading {
   #download-button {
     top: auto;
     bottom: 20px;
-    left: 50%;
+    left: 95%;
     transform: translateX(-50%);
   }
 }

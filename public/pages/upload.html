@@ -49,34 +49,42 @@
     <!-- JavaScript for background graphics and file name display -->
     <script src="script.js"></script>
     <script>
-    
-document.getElementById("uploadForm").addEventListener("submit", async function (e) {
-    e.preventDefault(); // prevent page reload
+ const token = localStorage.getItem("token");
 
-    const fileInput = document.getElementById("file-upload");
-    const file = fileInput.files[0];
-    if (!file) return alert("Please select a file first.");
+document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const fileInput = document.getElementById("fileInput");
+  const formData = new FormData();
+  formData.append("file", fileInput.files[0]);
 
-    const formData = new FormData();
-    formData.append("file", file);
+  const res = await fetch("/upload", {
+    method: "POST",
+    headers: { Authorization: "Bearer " + token },
+    body: formData,
+  });
 
-    const token = localStorage.getItem("token");
+  const data = await res.json();
+  if (res.ok) {
+    // show uploaded image instantly
+    const img = document.getElementById("profilePic");
+    img.src = data.imageUrl; // Supabase public URL
+    img.style.display = "block";
+    alert("Image uploaded successfully!");
+  } else {
+    alert(data.message || "Upload failed");
+  }
+});
 
-    const res = await fetch("/upload", {
-        method: "POST",
-        headers: {
-            Authorization: `Bearer ${token}` // ✅ Bearer token format
-        },
-        body: formData
-    });
 
-    const data = await res.json();
-    if (data.imageUrl) {
-        alert("Profile picture updated!");
-        document.getElementById("profilePic").src = data.imageUrl;
-    } else {
-        alert("something went wrong " + data.message);
-    }
+window.addEventListener("load", async () => {
+  const userId = localStorage.getItem("userId");
+  if (!userId) return;
+
+  const res = await fetch(`/profile-pic/${userId}`);
+  if (res.ok) {
+    document.getElementById("profilePic").src = res.url;
+    document.getElementById("profilePic").style.display = "block";
+  }
 });
 </script>
 
