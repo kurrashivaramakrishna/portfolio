@@ -75,11 +75,14 @@
       }
     });
 
+
+    
+
     // Upload form submit
     document.getElementById("uploadForm").addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const file = fileInput.files[0];
+      const file = fileInput.file[0];
       if (!file) {
         alert("Please select an image first");
         return;
