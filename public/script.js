@@ -216,3 +216,40 @@ if (contactForm) {
       : "Error sending message";
   });
 }
+
+
+//contact form response message
+
+ document.getElementById("contactForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      subject: document.getElementById("subject").value,
+      message: document.getElementById("message").value,
+    };
+
+    try {
+      const res = await fetch("/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      document.getElementById("formResponse").innerText = data.message;
+    } catch (err) {
+      document.getElementById("formResponse").innerText = "❌ Error sending message.";
+    }
+  });
+
+
+
+ const userId = localStorage.getItem("userId"); // save this after login
+    fetch(`http://localhost:3000/profile-pic/${userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Fetched:", data.imageUrl);
+        document.getElementById("my-profile").src = data.imageUrl;
+      });

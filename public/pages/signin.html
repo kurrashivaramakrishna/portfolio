@@ -18,7 +18,6 @@
       padding: 0;
       overflow-x: hidden;
     }
-
     #rainCanvas {
       position: fixed;
       top: 0;
@@ -37,7 +36,8 @@
   <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg w-full max-w-md mx-4">
     <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Welcome Back!</h2>
 
-    <form action="/login" method="POST" class="space-y-6">
+    <!--  Added id="loginForm" -->
+    <form id="loginForm" class="space-y-6">
       <div>
         <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">Email Address</label>
         <input
@@ -70,51 +70,55 @@
       </button>
     </form>
 
+    <!--  Added message placeholder -->
+    <p id="message" class="text-center text-sm mt-4"></p>
+
     <p class="text-center text-gray-600 text-sm mt-6">
       Don't have an account?
-      <a href="signup.html" class="text-blue-600 hover:text-blue-800 font-semibold">Sign Up</a>
+      <!-- <a href="signup.html" class="text-blue-600 hover:text-blue-800 font-semibold">Sign Up</a> -->
     </p>
   </div>
 
-  <script src="/script.js"></script>
-</body>
   <script>
-document.getElementById("loginForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
+  document.getElementById("loginForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
 
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const message = document.getElementById("message");
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const message = document.getElementById("message");
 
-    try {
-        const response = await fetch("/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email, password })
-        });
+      try {
+          const response = await fetch("/login", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email, password })
+          });
 
-        const data = await response.json();
+          const data = await response.json();
 
-        if (response.ok) {
-            localStorage.setItem("token", data.token); // 
-            message.textContent = "Login successful!";
-            message.style.color = "green";
-            window.location.href = "/pages/upload.html"; // 
-        } else {
-            message.textContent = data.message;
-            message.style.color = "red";
-        }
-    } catch (err) {
-        message.textContent = "Server error during login";
-        message.style.color = "red";
-    }
-});
+          if (response.ok) {
+              //  store both token and userId for upload page
+              localStorage.setItem("token", data.token);
+              localStorage.setItem("userId", data.user.id);
 
+              message.textContent = "Login successful!";
+              message.style.color = "green";
 
-</script>
+              //  Redirect after successful login
+              window.location.href = "/pages/upload.html";
+          } else {
+              message.textContent = data.message;
+              message.style.color = "red";
+          }
+      } catch (err) {
+          message.textContent = "Server error during login";
+          message.style.color = "red";
+      }
+  });
+  </script>
+</body>
 </html>
+
 
 <!-- 
 

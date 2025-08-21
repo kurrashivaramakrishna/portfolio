@@ -23,7 +23,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-   
 
     <title>Shiva Rama Krishna | Full Stack Developer</title>
   </head>
@@ -38,8 +37,11 @@
     </label>
 
     <div class="content-wrapper" id="Content-wrapper">
-           <a href="/images/Shiva_Rama_Krishna-Software_Engineer.pdf" id="download-button" download>
-
+      <a
+        href="/images/Shiva_Rama_Krishna-Software_Engineer.pdf"
+        id="download-button"
+        download
+      >
         <button class="btn"><i class="fa fa-download"></i> Download</button>
       </a>
       <div id="dropdown-menu">
@@ -48,9 +50,11 @@
           <a href="/index.html" class="menu-Elements">Home</a>
           <a href="/pages/skills" class="menu-Elements">Skills</a>
           <a href="/pages/projects" class="menu-Elements">Projects</a>
-          <a href="/pages/experience" class="menu-Elements" >Experience</a>
+          <a href="/pages/experience" class="menu-Elements">Experience</a>
           <a href="/pages/Achievements" class="menu-Elements">Achievements</a>
-          <a href="/pages/certifications" class="menu-Elements">Certifications</a>
+          <a href="/pages/certifications" class="menu-Elements"
+            >Certifications</a
+          >
           <a href="/pages/interests" class="menu-Elements">Interests</a>
           <a href="/pages/Contact" class="menu-Elements">Contact</a>
         </div>
@@ -98,57 +102,105 @@
       </div>
       <section class="menu-options" aria-label="Contact form section">
         <h1>Contact Me</h1>
- <div class="container">
-                <h2>Let's build something great together.</h2>
-                <p>I'm currently seeking new opportunities as a full-stack developer. If you have a project in mind, a job opportunity, or just want to connect, please use the form below to get in touch!</p>
-                
-                <form action="YOUR_BACKEND_SCRIPT_URL" method="POST" class="contact-form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="6" required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
+        <div class="container">
+          <h2>Let's build something great together.</h2>
+          <p>
+            I'm currently seeking new opportunities as a full-stack developer.
+            If you have a project in mind, a job opportunity, or just want to
+            connect, please use the form below to get in touch!
+          </p>
+
+          <form id="contactForm" class="contact-form">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required />
             </div>
-        </section>
-        <section id="social-links-section" class="contact-section secondary-section">
-            <div class="container">
-                <h3>Other Ways to Connect</h3>
-                <div class="social-links">
-                    <a href="mailto:shivakrish2724262@gmail.com" class="social-link" title="Email me">
-                        <i class="fas fa-envelope"></i>
-                        <span>Email me</span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/shiva-rama-krishna-861a3916b"  class="social-link">
-                        <i class="fab fa-linkedin-in"></i>
-                        <span>LinkedIn</span>
-                    </a>
-                    <a href="https://github.com/kurrashivaramakrishna"  class="social-link"  >
-                        <i class="fab fa-github"></i>
-                        <span>GitHub</span>
-                    </a>
-                    
-                </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required />
             </div>
-        </section>
+
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" required />
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="6"
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Send Message</button>
+          </form>
+          <p id="formResponse"></p>
+        </div>
+      </section>
+      <section
+        id="social-links-section"
+        class="contact-section secondary-section"
+      >
+        <div class="container">
+          <h3>Other Ways to Connect</h3>
+          <div class="social-links">
+            <a
+              href="mailto:shivakrish2724262@gmail.com"
+              class="social-link"
+              title="Email me"
+            >
+              <i class="fas fa-envelope"></i>
+              <span>Email me</span>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/shiva-rama-krishna-861a3916b"
+              class="social-link"
+            >
+              <i class="fab fa-linkedin-in"></i>
+              <span>LinkedIn</span>
+            </a>
+            <a
+              href="https://github.com/kurrashivaramakrishna"
+              class="social-link"
+            >
+              <i class="fab fa-github"></i>
+              <span>GitHub</span>
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   </body>
+
+  <script>
+     document.getElementById("contactForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      subject: document.getElementById("subject").value,
+      message: document.getElementById("message").value,
+    };
+
+    try {
+      const res = await fetch("/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      document.getElementById("formResponse").innerText = data.message;
+    } catch (err) {
+      document.getElementById("formResponse").innerText = "❌ Error sending message.";
+    }
+  });
+  </script>
   <script src="/script.js"></script>
   <!-- <script src="/server.js"></script> -->
 </html>

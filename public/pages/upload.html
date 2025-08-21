@@ -1,93 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
- <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Update Profile Picture - My Portfolio</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts - Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body class="font-inter bg-gray-900 overflow-hidden">
-    <!-- Canvas for dynamic background graphics -->
-    <canvas id="backgroundCanvas"></canvas>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Update Profile Picture - My Portfolio</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts - Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="font-inter bg-gray-900 overflow-hidden">
 
-    <!-- Content Wrapper to center elements above the canvas -->
-    <div class="content-wrapper flex flex-col items-center justify-center min-h-screen p-4 relative z-10">
-        <h1 class="text-white text-4xl sm:text-5xl font-extrabold text-center mb-10 drop-shadow-lg leading-tight">
-            Update Your Profile Picture
-        </h1>
+  <canvas id="backgroundCanvas"></canvas>
 
-        <div class="profile-image-wrapper bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md transform transition-all duration-300 hover:scale-[1.01] hover:shadow-blue-500/50">
-            <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data" class="space-y-6">
-                <!-- Hidden input for userId (assuming it's always 1 for this example) -->
-                <input type="hidden" name="userId" value="1" />
+  <div class="content-wrapper flex flex-col items-center justify-center min-h-screen p-4 relative z-10">
+    <h1 class="text-white text-4xl sm:text-5xl font-extrabold text-center mb-10 drop-shadow-lg leading-tight">
+      Update Your Profile Picture
+    </h1>
 
-                <!-- Custom styled file input -->
-                <div>
-                    <label for="file-upload" class="custom-file-upload block cursor-pointer text-center py-5 px-6 rounded-xl border-2 border-dashed border-gray-300 text-gray-600 hover:border-blue-500 hover:text-blue-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 0115.9 6L16 6a3 3 0 013 3v10a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h.01"></path>
-                        </svg>
-                        <span class="mt-2 block text-sm font-medium">Drag and drop or click to select an image</span>
-                    </label>
-                    <input id="file-upload" type="file" name="file" accept="image/*" class="hidden" />
-                    <p id="fileName" class="text-sm text-gray-500 mt-3 text-center truncate"></p>
-                </div>
+    <!-- Profile Picture Preview -->
+    <img id="profilePic" 
+         class="w-32 h-32 rounded-full border-4 border-blue-500 shadow-lg mb-6 hidden" 
+         alt="Profile Picture">
 
-                <!-- Upload Button -->
-                <button type="submit"  class="upload-btn w-full h-full py-5 px-6 rounded-xl font-bold text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out shadow-lg transform hover:-translate-y-1 hover:scale-105 active:scale-95">
-                    Upload Picture
-                </button>
-            </form>
+    <div class="profile-image-wrapper bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md transform transition-all duration-300 hover:scale-[1.01] hover:shadow-blue-500/50">
+      <form id="uploadForm" enctype="multipart/form-data" class="space-y-6">
+        
+        <!-- File Input -->
+        <div>
+          <label for="file-upload" class="block cursor-pointer text-center py-5 px-6 rounded-xl border-2 border-dashed border-gray-300 text-gray-600 hover:border-blue-500 hover:text-blue-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 0115.9 6L16 6a3 3 0 013 3v10a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h.01"></path>
+            </svg>
+            <span class="mt-2 block text-sm font-medium">Drag and drop or click to select an image</span>
+          </label>
+          <input id="file-upload" type="file" name="file" accept="image/*" class="hidden" />
+          <p id="fileName" class="text-sm text-gray-500 mt-3 text-center truncate"></p>
         </div>
+
+        <!-- Upload Button -->
+        <button type="submit" class="upload-btn w-full py-5 px-6 rounded-xl font-bold text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out shadow-lg transform hover:-translate-y-1 hover:scale-105 active:scale-95">
+          Upload Picture
+        </button>
+      </form>
     </div>
+  </div>
 
-    <!-- JavaScript for background graphics and file name display -->
-    <script src="script.js"></script>
-    <script>
- const token = localStorage.getItem("token");
+  <!-- JavaScript -->
+  <script>
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
 
-document.getElementById("uploadForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const fileInput = document.getElementById("fileInput");
-  const formData = new FormData();
-  formData.append("file", fileInput.files[0]);
+    const fileInput = document.getElementById("file-upload");
+    const fileNameDisplay = document.getElementById("fileName");
+    const profilePic = document.getElementById("profilePic");
 
-  const res = await fetch("/upload", {
-    method: "POST",
-    headers: { Authorization: "Bearer " + token },
-    body: formData,
-  });
+    // Show selected file name
+    fileInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        fileNameDisplay.textContent = file.name;
+        // Show preview
+        const reader = new FileReader();
+        reader.onload = () => {
+          profilePic.src = reader.result;
+          profilePic.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      } else {
+        fileNameDisplay.textContent = "";
+        profilePic.style.display = "none";
+      }
+    });
 
-  const data = await res.json();
-  if (res.ok) {
-    // show uploaded image instantly
-    const img = document.getElementById("profilePic");
-    img.src = data.imageUrl; // Supabase public URL
-    img.style.display = "block";
-    alert("Image uploaded successfully!");
-  } else {
-    alert(data.message || "Upload failed");
-  }
-});
+    // Upload form submit
+    document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
 
+      const file = fileInput.files[0];
+      if (!file) {
+        alert("Please select an image first");
+        return;
+      }
 
-window.addEventListener("load", async () => {
-  const userId = localStorage.getItem("userId");
-  if (!userId) return;
+      console.log("Uploading file:", file);
 
-  const res = await fetch(`/profile-pic/${userId}`);
-  if (res.ok) {
-    document.getElementById("profilePic").src = res.url;
-    document.getElementById("profilePic").style.display = "block";
-  }
-});
-</script>
+      const formData = new FormData();
+      formData.append("file", file);
 
-  </body>
+      try {
+        const res = await fetch("http://localhost:3000/upload", {
+          method: "POST",
+          headers: { Authorization: "Bearer " + token },
+          body: formData
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          profilePic.src = data.imageUrl;
+          profilePic.style.display = "block";
+          alert("Image uploaded successfully!");
+        } else {
+          console.error("Upload failed:", data);
+          alert(data.message || "Upload failed");
+        }
+      } catch (err) {
+        console.error("Error:", err);
+        alert("Upload failed due to network error");
+      }
+    });
+
+    // Load existing profile picture
+    window.addEventListener("load", async () => {
+      if (!userId) return;
+      try {
+        const res = await fetch(`http://localhost:3000/profile-pic/${userId}`);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.imageUrl) {
+          profilePic.src = data.imageUrl;
+          profilePic.style.display = "block";
+        }
+      } catch (err) {
+        console.error("Error fetching profile picture:", err);
+      }
+    });
+  </script>
+
+</body>
 </html>
 
