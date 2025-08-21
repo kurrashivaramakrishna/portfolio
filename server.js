@@ -186,13 +186,13 @@ app.post(
 
     // 2. Check File
     if (!req.file) {
-      console.warn("⚠️ Multer did not receive a file");
+      console.warn(" Multer did not receive a file");
       return res
         .status(400)
         .json({ message: "No file received. Did you select a file?" });
     }
 
-    console.log("✅ File received by multer:");
+    console.log("File received by multer:");
     console.log("  originalname:", req.file.originalname);
     console.log("  mimetype:", req.file.mimetype);
     console.log("  size:", req.file.size);
@@ -218,7 +218,7 @@ app.post(
         });
 
       if (uploadError) {
-        console.error("❌ Supabase upload error:", uploadError);
+        console.error(" Supabase upload error:", uploadError);
         return res
           .status(500)
           .json({ message: "Error uploading image to Supabase" });
@@ -231,7 +231,7 @@ app.post(
         .eq("id", userId);
 
       if (updateError) {
-        console.error("❌ DB update error:", updateError);
+        console.error(" DB update error:", updateError);
         return res
           .status(500)
           .json({ message: "Error saving image path in DB" });
@@ -244,7 +244,7 @@ app.post(
       if (error) throw error; // usually undefined, but good to check
       const publicURL = data.publicUrl;
 
-      console.log("✅ Upload finished. Public URL:", publicURL);
+      console.log("Upload finished. Public URL:", publicURL);
       console.log("---- UPLOAD REQUEST END ----");
 
       return res.status(200).json({
@@ -252,7 +252,7 @@ app.post(
         imageUrl: publicURL,
       });
     } catch (error) {
-      console.error("❌ Unexpected server error:", error);
+      console.error(" Unexpected server error:", error);
       return res.status(500).json({ message: "Server error during upload" });
     }
   }
@@ -331,10 +331,10 @@ Message: ${message}
 
     // 3. Send email
     await transporter.sendMail(mailOptions);
-
+    // res.redirect("../public/index.html");
     res.json({ success: true, message: "Message sent successfully" });
   } catch (err) {
-    console.error("❌ Email sending error:", err);
+    console.error(" Email sending error:", err);
     res.status(500).json({ success: false, message: "Failed to send message" });
   }
 });

@@ -236,11 +236,15 @@ if (contactForm) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
+      
 
       const data = await res.json();
       document.getElementById("formResponse").innerText = data.message;
     } catch (err) {
-      document.getElementById("formResponse").innerText = "❌ Error sending message.";
+      document.getElementById("formResponse").innerText = "Error sending message.";
+    }
+    if (res.ok) {
+      contactForm.reset(); // Clear the form on success
     }
   });
 
