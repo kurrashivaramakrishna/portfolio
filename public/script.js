@@ -60,6 +60,34 @@ function applyTheme(theme) {
   });
 }
 
+const circularProgress = document.querySelectorAll(".circular-progress");
+
+circularProgress.forEach((progressBar) => {
+  const progressValue = progressBar.querySelector(".percentage");
+  const innerCircle = progressBar.querySelector(".inner-circle");
+  const endValue = Number(progressBar.getAttribute("data-percentage"));
+  const progressColor = progressBar.getAttribute("data-progress-color");
+  const bgColor = progressBar.getAttribute("data-bg-color");
+  const innerColor = progressBar.getAttribute("data-inner-circle-color");
+
+  let startValue = 0;
+  const speed = 20;
+
+  innerCircle.style.backgroundColor = innerColor;
+
+  const progress = setInterval(() => {
+    startValue++;
+    const angle = startValue * 3.6;
+    progressBar.style.background = `conic-gradient(${progressColor} ${angle}deg, ${bgColor} 0deg)`;
+    progressValue.textContent = `${startValue}%`;
+    progressValue.style.color = progressColor;
+
+    if (startValue === endValue) clearInterval(progress);
+  }, speed);
+});
+
+
+
 // =================== MENU TOGGLE ===================
 let isMenuOpen = false;
 function toggleMenu(button) {
@@ -192,28 +220,6 @@ if (contentWrapper) {
     } else {
       contentWrapper.classList.remove("fade-out");
     }
-  });
-}
-
-// =================== CONTACT FORM ===================
-const contactForm = document.getElementById("contactForm");
-if (contactForm) {
-  contactForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const formData = {
-      name: e.target.name.value,
-      email: e.target.email.value,
-      message: e.target.message.value,
-    };
-    const res = await fetch("https://your-backend.onrender.com/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-    const data = await res.json();
-    document.getElementById("statusMsg").textContent = data.success
-      ? "Message Sent!"
-      : "Error sending message";
   });
 }
 
