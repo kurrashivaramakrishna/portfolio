@@ -4,6 +4,259 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>My SPA</title>
+
+     <style>
+
+/* Responsive Design */
+@media (max-width: 720px) {
+  #contact {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+  }
+  .form-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .form-group label {
+    flex-basis: auto;
+    margin-bottom: 0.3rem;
+    color: antiquewhite;
+  }
+  #contact button {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+
+
+/* Responsive Typography (adjust font sizes a bit on bigger screens) */
+@media (min-width: 600px) {
+  body {
+    font-size: 15px;
+    padding: 15px 20px;
+  }
+
+  h1 { font-size: 2.2rem; }
+  h2 { font-size: 1.8rem; }
+  h3 { font-size: 1.5rem; }
+
+  .cert-boxes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .content-wrapper {
+    max-width: 90%;
+  }
+}
+
+@media (min-width: 900px) {
+  body {
+    font-size: 16px;
+    padding: 20px 30px;
+  }
+
+  h1 { font-size: 2.8rem; }
+  h2 { font-size: 2.2rem; }
+  h3 { font-size: 1.8rem; }
+
+  .cert-boxes {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .content-wrapper {
+    max-width: 1200px;
+  }
+
+  /* menu-content reposition */
+  .menu-content {
+    width: 320px;
+    right: 40px;
+  }
+
+  /* download-button */
+  /* #download-button {
+    top: 20px;
+    right: 40px;
+  } */
+}
+
+/* Extra large screens */
+@media (min-width: 1400px) {
+  .content-wrapper {
+    max-width: 1400px;
+  }
+
+  .cert-boxes {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Specific mobile adjustments for fixed elements and layout */
+@media (max-width: 599px) {
+  
+  content-wrapper {
+    margin: 0 auto;       /* center it */
+    width: 100%;          /* allow full width */
+    max-width: none;      /* remove the limit */
+    padding: 75px;        /* add internal spacing */
+    box-sizing: border-box; /* ensures padding doesn't overflow */
+  }
+#my-profile,.menu-options,.tech-marquee{
+    margin-left: 10px;
+    width: 350px;
+  }
+
+  .menu-content {
+    top: 50px;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  #download-button {
+    top: auto;
+    bottom: 20px;
+    left: 95%;
+    transform: translateX(-50%);
+  }
+}
+/* Match contact section style to other menu options */
+  /* Contact Container */
+  /* Contact Section Container */
+/* #contact {
+  background-color: rgba(15, 23, 42, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 255, 255, 0.15);
+  max-width: 850px;
+  width: 100%;
+  padding: 2.5rem 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  animation: fadeInUp 0.8s ease forwards;
+} */
+
+
+
+
+/* Fullscreen / Large screens */
+@media screen and (min-width: 1200px) {
+  .menu-options,
+  #my-profile,
+  footer,
+  .tech-marquee {
+    margin-top: 3vh;
+    margin-right: 3vw;
+    margin-left: 6vw;
+    margin-bottom: 2vh;
+    padding: 2rem;
+    font-size: 1.2rem; /* scalable text */
+  }
+
+  .menu-options h2 {
+    font-size: 2rem;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  ul {
+    font-size: 1.1rem;
+  }
+
+  .content-wrapper {
+    max-width: 1400px; /* expand content width */
+    padding: 60px 40px;
+    margin: -150px auto;
+  }
+}
+
+/* Medium screens */
+@media screen and (max-width: 1199px) and (min-width: 768px) {
+  .menu-options,
+  #my-profile,
+  footer,
+  .tech-marquee {
+    margin: 20px;
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+}
+
+/* Mobile screens */
+@media screen and (max-width: 767px) {
+  .menu-options,
+  #my-profile,
+  footer,
+  .tech-marquee {
+    margin: 10px;
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  ul {
+    font-size: 0.95rem;
+  }
+}
+
+
+
+@media screen and (max-width: 800px) {
+  body {
+    padding: 10px;
+  }
+
+  .menu-button {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+  #username {
+    font-size: 22px;
+  }
+  .menu-options h2 {
+    font-size: 20px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+}
+
+
+/* === Responsive Adjustments === */
+@media screen and (max-width: 600px) {
+  .circular-progress {
+    width: 45px;
+    height: 45px;
+  }
+}
+</style>
 </head>
 <body>
    <nav>

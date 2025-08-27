@@ -76,13 +76,13 @@
     });
 
 
-    
+
 
     // Upload form submit
     document.getElementById("uploadForm").addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const file = fileInput.file[0];
+      const file = fileInput.files[0];
       if (!file) {
         alert("Please select an image first");
         return;
@@ -92,6 +92,8 @@
 
       const formData = new FormData();
       formData.append("file", file);
+          console.log("FormData has:", [...formData.entries()]);
+
 
       try {
         const res = await fetch("http://localhost:3000/upload", {

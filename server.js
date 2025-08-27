@@ -258,6 +258,11 @@ app.post(
   }
 );
 
+// Other middlewares for JSON APIs
+app.use(express.json({ limit: "2mb" }));
+app.use(express.urlencoded({ extended: true, limit: "2mb" }));
+
+
 // ---- Get profile picture URL ----
 app.get("/profile-pic/:userId", async (req, res) => {
   const { userId } = req.params;

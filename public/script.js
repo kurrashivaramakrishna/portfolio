@@ -40,6 +40,7 @@ function applyTheme(theme) {
     document.querySelector("h2"),
     document.querySelector(".marquee-track"),
     document.getElementById("dropdown-menu"),
+    ...document.getElementsByClassName("project-card"),
     ...document.getElementsByTagName("h2"),
     ...document.querySelectorAll(".skill-item"),
     ...document.querySelectorAll(".skills-grid"),
