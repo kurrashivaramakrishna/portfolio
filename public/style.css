@@ -64,6 +64,13 @@ h2.light-mode {
 .menu-Elements.light-mode {
   color: #000;
 }
+.project-card.light-mode{
+  background: #f9f9f9;
+  color: #000;
+}
+.project-card.light-mode p {
+  color: #000;
+}
 
 #menu-content.light-mode {
   background-color: #f9f9f9;
@@ -315,7 +322,7 @@ input:checked + .slider:before {
   margin: 0;
 }
 
-.tech-marquee {
+/* .tech-marquee {
   background: #1e293b;
   margin-left: 80px;
   border-radius: 10px;
@@ -323,8 +330,22 @@ input:checked + .slider:before {
   margin-bottom: 30px;
   overflow: hidden;
   white-space: nowrap;
-  /* position: relative; */
+  /* position: relative; 
+} */
+ .tech-marquee {
+  margin: 20px auto; /* center horizontally */
+  padding: 15px;
+  font-size: 1rem;
+  background: #1e293b;
+  border-radius: 10px;
+  border: 2px solid #00ffff33; /* border visible */
+  box-sizing: border-box;
+
+  width: 100%;       /* take full width of container */
+  max-width: 1200px; /* prevent infinite growth */
+  overflow: hidden;  /* keep scrolling effect inside */
 }
+
 
 .marquee-track {
   display: inline-flex;
@@ -532,26 +553,6 @@ footer {
   text-decoration: none;
 }
 
-@media screen and (max-width: 800px) {
-  body {
-    padding: 10px;
-  }
-
-  .menu-button {
-    padding: 10px 14px;
-    font-size: 14px;
-  }
-  #username {
-    font-size: 22px;
-  }
-  .menu-options h2 {
-    font-size: 20px;
-  }
-
-  h2 {
-    font-size: 20px;
-  }
-}
 
 @keyframes fadeIn {
   from {
@@ -564,13 +565,6 @@ footer {
   }
 }
 
-/* === Responsive Adjustments === */
-@media screen and (max-width: 600px) {
-  .circular-progress {
-    width: 45px;
-    height: 45px;
-  }
-}
 h1#heading {
   color:red;
 }
@@ -626,118 +620,6 @@ h1#heading {
   color: #111827 ;
 }
 
-
-
-/* Responsive Typography (adjust font sizes a bit on bigger screens) */
-@media (min-width: 600px) {
-  body {
-    font-size: 15px;
-    padding: 15px 20px;
-  }
-
-  h1 { font-size: 2.2rem; }
-  h2 { font-size: 1.8rem; }
-  h3 { font-size: 1.5rem; }
-
-  .cert-boxes {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .content-wrapper {
-    max-width: 90%;
-  }
-}
-
-@media (min-width: 900px) {
-  body {
-    font-size: 16px;
-    padding: 20px 30px;
-  }
-
-  h1 { font-size: 2.8rem; }
-  h2 { font-size: 2.2rem; }
-  h3 { font-size: 1.8rem; }
-
-  .cert-boxes {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .content-wrapper {
-    max-width: 1200px;
-  }
-
-  /* menu-content reposition */
-  .menu-content {
-    width: 320px;
-    right: 40px;
-  }
-
-  /* download-button */
-  /* #download-button {
-    top: 20px;
-    right: 40px;
-  } */
-}
-
-/* Extra large screens */
-@media (min-width: 1400px) {
-  .content-wrapper {
-    max-width: 1400px;
-  }
-
-  .cert-boxes {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-/* Specific mobile adjustments for fixed elements and layout */
-@media (max-width: 599px) {
-  
-  content-wrapper {
-    margin: 0 auto;       /* center it */
-    width: 100%;          /* allow full width */
-    max-width: none;      /* remove the limit */
-    padding: 75px;        /* add internal spacing */
-    box-sizing: border-box; /* ensures padding doesn't overflow */
-  }
-#my-profile,.menu-options,.tech-marquee{
-    margin-left: 10px;
-    width: 350px;
-  }
-
-  .menu-content {
-    top: 50px;
-    left: 0;
-    right: 0;
-    width: 100vw;
-    border-radius: 0;
-    box-shadow: none;
-  }
-
-  #download-button {
-    top: auto;
-    bottom: 20px;
-    left: 95%;
-    transform: translateX(-50%);
-  }
-}
-/* Match contact section style to other menu options */
-  /* Contact Container */
-  /* Contact Section Container */
-/* #contact {
-  background-color: rgba(15, 23, 42, 0.95);
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 255, 255, 0.15);
-  max-width: 850px;
-  width: 100%;
-  padding: 2.5rem 3rem;
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 2rem;
-  font-size: 1rem;
-  line-height: 1.6;
-  animation: fadeInUp 0.8s ease forwards;
-} */
 
 
 .container {
@@ -813,6 +695,50 @@ h1#heading {
     background-color: var(--card-bg-color);
     border-top: 1px solid var(--border-color);
 }
+/* project links css */
+.project-card {
+  background-color: #0f172a;
+  color: #fff;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  max-width: 700px;
+}
+
+
+
+.project-card p {
+  line-height: 1.6;
+  color: #fff;
+}
+
+.project-link {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 18px;
+  background-color: #131d28;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.project-link:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.project-link:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+
+
 
 /* --- Contact Form --- */
 .contact-form {
@@ -1012,28 +938,6 @@ h1#heading {
   background-color: #4f46e5 !important;
 }
 
-/* Responsive Design */
-@media (max-width: 720px) {
-  #contact {
-    display: flex;
-    flex-direction: column;
-    padding: 2rem;
-  }
-  .form-group {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .form-group label {
-    flex-basis: auto;
-    margin-bottom: 0.3rem;
-    color: antiquewhite;
-  }
-  #contact button {
-    width: 100%;
-    margin-top: 0.5rem;
-  }
-}
-
 /* Fade In Animation */
 @keyframes fadeInUp {
   from {
@@ -1049,3 +953,118 @@ h1#heading {
 
 /* screen sizes */
 
+/* Specific mobile adjustments for fixed elements and layout */
+@media (max-width: 599px) {
+  
+  #my-profile{
+    margin: 75px auto; 
+    margin-bottom: 20px;    /* centers horizontally */
+  width: 90%;         /* responsive width */
+  max-width: 350px;   /* don’t exceed 350px */
+  box-sizing: border-box;
+
+  }
+.menu-options,.tech-marquee{
+      margin: 40px auto;     /* centers horizontally */
+  width: 90%;         /* responsive width */
+  max-width: 350px;   /* don’t exceed 350px */
+  box-sizing: border-box;
+  }
+
+  .menu-content {
+    top: 50px;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  #download-button {
+    top: auto;
+    bottom: 20px;
+    left: 95%;
+    transform: translateX(-50%);
+  }
+}
+
+
+
+/* === Tablet Portrait (600px - 899px) === */
+@media (min-width: 600px) and (max-width: 899px) {
+  .content-wrapper {
+    padding: 25px;
+    width: 95%;
+  }
+
+  #my-profile,
+  .menu-options,
+  .tech-marquee {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .menu-content {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+/* === Tablet Landscape / Small Laptop (900px - 1199px) === */
+@media (min-width: 900px) and (max-width: 1199px) {
+  .content-wrapper {
+    padding: 30px;
+  }
+
+  #my-profile,
+  .menu-options,
+  .tech-marquee {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .menu-content {
+    width: 70%;
+  }
+}
+
+/* === Laptops / Desktops (1200px - 1799px) === */
+@media (min-width: 1200px) and (max-width: 1799px) {
+  .content-wrapper {
+    padding: 40px;
+  }
+
+  #my-profile,
+  .menu-options,
+  .tech-marquee {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .menu-content {
+    width: 50%;
+  }
+}
+
+/* === Extra Large Screens (1800px and above) === */
+@media (min-width: 1800px) {
+  .content-wrapper {
+    padding: 50px;
+    max-width: 1600px;
+  }
+
+  #my-profile,
+  .menu-options,
+  .tech-marquee {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .menu-content {
+    width: 40%;
+  }
+}
