@@ -1,8 +1,25 @@
-import { createClient } from '@supabase/supabase-js'
-import fs from 'fs'
+const express = require("express");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const cors = require("cors");
+const nodemailer = require("nodemailer");
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
+require("dotenv").config();
+const { createClient } = require("@supabase/supabase-js");
 
+const app = express();
+const port = process.env.PORT || 3000;
+
+// ---- Supabase ----
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_ANON_KEY
+);
+const JWT_SECRET = process.env.JWT_SECRET;
+const BUCKET = "profile-pics";
 // Example: Upload a local image file
 const fileBuffer = fs.readFileSync('profile.png')
 
