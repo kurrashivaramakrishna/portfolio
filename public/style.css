@@ -707,7 +707,9 @@ h1#heading {
 }
 
 
-
+.project-card h1{
+  color: white;
+}
 .project-card p {
   line-height: 1.6;
   color: #fff;
