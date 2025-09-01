@@ -14,7 +14,7 @@ const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 dotenv.config();
 
 const app = express();
-port = 3000;
+const port = 3000;
 
 require("dotenv").config();
 const { createClient } = require("@supabase/supabase-js");
