@@ -264,3 +264,27 @@ if (contentWrapper) {
         console.log("Fetched:", data.imageUrl);
         document.getElementById("my-profile").src = data.imageUrl;
       });
+
+
+
+      // Function to load the latest image from backend
+async function loadLatestProfileImage() {
+  try {
+    const res = await fetch("/latest"); // calls your backend
+    const data = await res.json();
+
+    const profileImg = document.getElementById("profile-image");
+
+    if (data.latest) {
+      profileImg.src = data.latest; // update to latest uploaded S3 image
+    } else {
+      profileImg.src = "./images/myprofile.jpg"; // fallback default
+    }
+  } catch (err) {
+    console.error("Error loading latest profile image:", err);
+    document.getElementById("profile-image").src = "./images/myprofile.jpg";
+  }
+}
+
+// Run once on page load
+window.addEventListener("DOMContentLoaded", loadLatestProfileImage);

@@ -6,12 +6,19 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
+const dotenv = require("dotenv");
+const crypto = require("crypto");
+const { S3Client, PutObjectCommand, ListObjectsV2Command, GetObjectCommand } = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+
+dotenv.config();
+
+const app = express();
+port = 3000;
 
 require("dotenv").config();
 const { createClient } = require("@supabase/supabase-js");
 
-const app = express();
-const port = process.env.PORT || 3000;
 
 // ---- Supabase ----
 const supabase = createClient(
@@ -30,19 +37,9 @@ if (!JWT_SECRET) {
 }
 
 // ---- Middleware ----
+// Multer memory storage
 const storage = multer.memoryStorage();
-const upload = multer({
-  storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
-  fileFilter: (req, file, cb) => {
-    const ok = /image\/(jpeg|jpg|png|webp|gif)/.test(file.mimetype);
-    cb(
-      ok
-        ? null
-        : new Error("Only images (jpeg, jpg, png, webp, gif) are allowed")
-    );
-  },
-});
+const upload = multer({ storage });
 
 app.use(cors({ origin: true, credentials: false }));
 app.use(express.json({ limit: "2mb" }));
@@ -169,131 +166,38 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post(
-  "/upload",
-  authenticateToken,
-  upload.single("file"),
-  async (req, res) => {
-    console.log("---- UPLOAD REQUEST START ----");
-
-    // 1. Check Auth
-    console.log("Auth header:", req.headers["authorization"]);
-    console.log("Decoded user from token:", req.user);
-
-    console.log("headers:", req.headers);
-    console.log("body:", req.body);
-    console.log("file:", req.file);
-
-    // 2. Check File
-    if (!req.file) {
-      console.warn(" Multer did not receive a file");
-      return res
-        .status(400)
-        .json({ message: "No file received. Did you select a file?" });
-    }
-
-    console.log("File received by multer:");
-    console.log("  originalname:", req.file.originalname);
-    console.log("  mimetype:", req.file.mimetype);
-    console.log("  size:", req.file.size);
-
-    try {
-      const userId = req.user.id;
-      const safeName = (req.file.originalname || "upload").replace(
-        /[^\w.\-]+/g,
-        "_"
-      );
-      const filePath = `${userId}/${Date.now()}_${safeName}`;
-
-      // 3. Upload to Supabase
-      console.log("Uploading to Supabase bucket:", BUCKET);
-      console.log("File path:", filePath);
-
-      const { error: uploadError } = await supabase.storage
-        .from(BUCKET)
-        .upload(filePath, req.file.buffer, {
-          contentType: req.file.mimetype,
-          cacheControl: "3600",
-          upsert: false,
-        });
-
-      if (uploadError) {
-        console.error(" Supabase upload error:", uploadError);
-        return res
-          .status(500)
-          .json({ message: "Error uploading image to Supabase" });
-      }
-
-      // 4. Save file path in DB
-      const { error: updateError } = await supabase
-        .from("users")
-        .update({ image_path: filePath })
-        .eq("id", userId);
-
-      if (updateError) {
-        console.error(" DB update error:", updateError);
-        return res
-          .status(500)
-          .json({ message: "Error saving image path in DB" });
-      }
-
-      // 5. Get public URL
-      const { data, error } = supabase.storage
-        .from(BUCKET)
-        .getPublicUrl(filePath);
-      if (error) throw error; // usually undefined, but good to check
-      const publicURL = data.publicUrl;
-
-      console.log("Upload finished. Public URL:", publicURL);
-      console.log("---- UPLOAD REQUEST END ----");
-
-      return res.status(200).json({
-        message: "Image uploaded successfully",
-        imageUrl: publicURL,
-      });
-    } catch (error) {
-      console.error(" Unexpected server error:", error);
-      return res.status(500).json({ message: "Server error during upload" });
-    }
-  }
-);
-
-// Other middlewares for JSON APIs
-app.use(express.json({ limit: "2mb" }));
-app.use(express.urlencoded({ extended: true, limit: "2mb" }));
+// S3 client
+const s3 = new S3Client({
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  },
+});
 
 
-// ---- Get profile picture URL ----
-app.get("/profile-pic/:userId", async (req, res) => {
-  const { userId } = req.params;
+
+// Upload endpoint
+app.post("/upload", upload.single("file"), async (req, res) => {
+  if (!req.file) return res.status(400).send("No file uploaded");
+
   try {
-    const { data: user, error } = await supabase
-      .from("users")
-      .select("image_path")
-      .eq("id", userId)
-      .single();
+    const ext = path.extname(req.file.originalname);
+    const fileName = crypto.randomBytes(16).toString("hex") + ext;
 
-    if (error) throw error;
-    if (!user || !user.image_path)
-      return res.status(404).json({ message: "Profile picture not found" });
+    const params = {
+      Bucket: process.env.S3_BUCKET_NAME,
+      Key: fileName,
+      Body: req.file.buffer,
+      ContentType: req.file.mimetype,
+    };
 
-    const { data: pub } = supabase.storage
-      .from(BUCKET)
-      .getPublicUrl(user.image_path);
-    return res.json({ imageUrl: pub.publicUrl });
+    await s3.send(new PutObjectCommand(params));
+
+    res.json({ message: "Upload successful" });
   } catch (err) {
-    console.error("Fetch error:", err);
-    // Helpful hint if column missing
-    if (
-      String(err.message || "").includes("column") &&
-      String(err.message || "").includes("image_path")
-    ) {
-      return res.status(500).json({
-        message:
-          "Database column users.image_path is missing — see setup notes below.",
-      });
-    }
-    return res.status(500).json({ message: "Server error fetching image" });
+    console.error("Upload error:", err);
+    res.status(500).send("Upload failed");
   }
 });
 
@@ -343,6 +247,37 @@ Message: ${message}
     res.status(500).json({ success: false, message: "Failed to send message" });
   }
 });
+
+app.get("/latest", async (req, res) => {
+  try {
+    const params = { Bucket: process.env.S3_BUCKET_NAME };
+    const data = await s3.send(new ListObjectsV2Command(params));
+
+    if (!data.Contents || data.Contents.length === 0) {
+      return res.json({ message: "No files found" });
+    }
+
+    // Sort by LastModified (newest first)
+    const sorted = data.Contents.sort(
+      (a, b) => new Date(b.LastModified) - new Date(a.LastModified)
+    );
+
+    // Get signed URL for the latest image
+    const latestFile = sorted[0];
+    const command = new GetObjectCommand({
+      Bucket: process.env.S3_BUCKET_NAME,
+      Key: latestFile.Key,
+    });
+    const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
+
+    res.json({ latest: url, fileName: latestFile.Key });
+  } catch (err) {
+    console.error("Error fetching latest file:", err);
+    res.status(500).send("Error retrieving latest file");
+  }
+});
+
+
 
 app.listen(port, () => {
   console.log(` Server running at http://localhost:${port}`);

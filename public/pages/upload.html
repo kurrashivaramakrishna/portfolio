@@ -1,139 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Update Profile Picture - My Portfolio</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts - Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S3 File Upload & View</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h1 { color: #333; }
+    #gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    #gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+  </style>
 </head>
-<body class="font-inter bg-gray-900 overflow-hidden">
+<body>
+  <h1>Upload and View Files</h1>
 
-  <canvas id="backgroundCanvas"></canvas>
+  <!-- Upload form -->
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" title="helo" name="file" />
+    <button type="submit">Upload</button>
+  </form>
 
-  <div class="content-wrapper flex flex-col items-center justify-center min-h-screen p-4 relative z-10">
-    <h1 class="text-white text-4xl sm:text-5xl font-extrabold text-center mb-10 drop-shadow-lg leading-tight">
-      Update Your Profile Picture
-    </h1>
+  <!-- <h2>Uploaded Files:</h2>
+  <div id="gallery"></div> -->
 
-    <!-- Profile Picture Preview -->
-    <img id="profilePic" 
-         class="w-32 h-32 rounded-full border-4 border-blue-500 shadow-lg mb-6 hidden" 
-         alt="Profile Picture">
-
-    <div class="profile-image-wrapper bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md transform transition-all duration-300 hover:scale-[1.01] hover:shadow-blue-500/50">
-      <form id="uploadForm" enctype="multipart/form-data" class="space-y-6">
-        
-        <!-- File Input -->
-        <div>
-          <label for="file-upload" class="block cursor-pointer text-center py-5 px-6 rounded-xl border-2 border-dashed border-gray-300 text-gray-600 hover:border-blue-500 hover:text-blue-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 0115.9 6L16 6a3 3 0 013 3v10a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h.01"></path>
-            </svg>
-            <span class="mt-2 block text-sm font-medium">Drag and drop or click to select an image</span>
-          </label>
-          <input id="file-upload" type="file" name="file" accept="image/*" class="hidden" />
-          <p id="fileName" class="text-sm text-gray-500 mt-3 text-center truncate"></p>
-        </div>
-
-        <!-- Upload Button -->
-        <button type="submit" class="upload-btn w-full py-5 px-6 rounded-xl font-bold text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out shadow-lg transform hover:-translate-y-1 hover:scale-105 active:scale-95">
-          Upload Picture
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- JavaScript -->
   <script>
-    const token = localStorage.getItem("token");
-    const userId = localStorage.getItem("userId");
-
-    const fileInput = document.getElementById("file-upload");
-    const fileNameDisplay = document.getElementById("fileName");
-    const profilePic = document.getElementById("profilePic");
-
-    // Show selected file name
-    fileInput.addEventListener("change", (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        fileNameDisplay.textContent = file.name;
-        // Show preview
-        const reader = new FileReader();
-        reader.onload = () => {
-          profilePic.src = reader.result;
-          profilePic.style.display = "block";
-        };
-        reader.readAsDataURL(file);
-      } else {
-        fileNameDisplay.textContent = "";
-        profilePic.style.display = "none";
-      }
-    });
-
-
-
-
-    // Upload form submit
+    // Upload file
     document.getElementById("uploadForm").addEventListener("submit", async (e) => {
       e.preventDefault();
-
-      const file = fileInput.files[0];
-      if (!file) {
-        alert("Please select an image first");
-        return;
-      }
-
-      console.log("Uploading file:", file);
-
-      const formData = new FormData();
-      formData.append("file", file);
-          console.log("FormData has:", [...formData.entries()]);
-
+      const formData = new FormData(e.target);
 
       try {
-        const res = await fetch("http://localhost:3000/upload", {
+        const res = await fetch("/upload", {
           method: "POST",
-          headers: { Authorization: "Bearer " + token },
           body: formData
         });
 
         const data = await res.json();
-        if (res.ok) {
-          profilePic.src = data.imageUrl;
-          profilePic.style.display = "block";
-          alert("Image uploaded successfully!");
-        } else {
-          console.error("Upload failed:", data);
-          alert(data.message || "Upload failed");
-        }
+        alert(data.message);
+        loadImages(); // refresh gallery
       } catch (err) {
-        console.error("Error:", err);
-        alert("Upload failed due to network error");
+        console.error("Upload failed:", err);
       }
     });
 
-    // Load existing profile picture
-    window.addEventListener("load", async () => {
-      if (!userId) return;
+    // Load images from server
+    async function loadImages() {
       try {
-        const res = await fetch(`http://localhost:3000/profile-pic/${userId}`);
-        if (!res.ok) return;
-        const data = await res.json();
-        if (data.imageUrl) {
-          profilePic.src = data.imageUrl;
-          profilePic.style.display = "block";
-        }
-      } catch (err) {
-        console.error("Error fetching profile picture:", err);
-      }
-    });
-  </script>
+        const res = await fetch("/files");
+        const urls = await res.json();
 
+        const gallery = document.getElementById("gallery");
+        gallery.innerHTML = "";
+
+        urls.forEach(url => {
+          const img = document.createElement("img");
+          img.src = url;
+          gallery.appendChild(img);
+        });
+      } catch (err) {
+        console.error("Error loading images:", err);
+      }
+    }
+
+    loadImages();
+  </script>
 </body>
 </html>
-
