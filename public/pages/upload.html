@@ -47,8 +47,7 @@
         });
 
         const data = await res.json();
-        alert(data.message);
-        loadImages(); // refresh gallery
+        window.location.href='/index.html';
       } catch (err) {
         console.error("Upload failed:", err);
       }
