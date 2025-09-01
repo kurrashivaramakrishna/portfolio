@@ -177,7 +177,6 @@ const s3 = new S3Client({
 
 
 
-// Upload endpoint
 app.post("/upload", upload.single("file"), async (req, res) => {
   if (!req.file) return res.status(400).send("No file uploaded");
 
@@ -194,12 +193,14 @@ app.post("/upload", upload.single("file"), async (req, res) => {
 
     await s3.send(new PutObjectCommand(params));
 
-    res.json({ message: "Upload successful" });
+    // Only send JSON; do NOT send HTML
+    res.json({ message: "Upload successful", fileName });
   } catch (err) {
     console.error("Upload error:", err);
     res.status(500).send("Upload failed");
   }
 });
+
 
 // ---- Health check (optional) ----
 app.get("/health", (_req, res) => res.json({ ok: true }));
@@ -274,6 +275,32 @@ app.get("/latest", async (req, res) => {
   } catch (err) {
     console.error("Error fetching latest file:", err);
     res.status(500).send("Error retrieving latest file");
+  }
+});
+
+
+app.get("/files", async (req, res) => {
+  try {
+    const params = { Bucket: process.env.S3_BUCKET_NAME };
+    const data = await s3.send(new ListObjectsV2Command(params));
+
+    if (!data.Contents) return res.json([]);
+
+    const urls = await Promise.all(
+      data.Contents.map(async (item) => {
+        const command = new GetObjectCommand({
+          Bucket: process.env.S3_BUCKET_NAME,
+          Key: item.Key,
+        });
+        const url = await getSignedUrl(s3, command, { expiresIn: 3600 }); // 1 hour
+        return url;
+      })
+    );
+
+    res.json(urls);
+  } catch (err) {
+    console.error("Error fetching files:", err);
+    res.status(500).send("Error retrieving files");
   }
 });
 

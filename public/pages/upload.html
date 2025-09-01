@@ -3,38 +3,158 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>S3 File Upload & View</title>
+  <title>S3 File Upload & Preview</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    h1 { color: #333; }
-    #gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 15px;
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f6fa;
+      color: #333;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2f3640;
+      margin-bottom: 30px;
+      font-size: 2rem;
+    }
+
+    .upload-container {
+      max-width: 500px;
+      margin: 0 auto 50px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    label.file-label {
+      display: inline-block;
+      background: #4cd137;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    label.file-label:hover {
+      background: #44bd32;
+      transform: scale(1.05);
+    }
+
+    button.upload-btn {
+      display: block;
+      margin: 20px auto 0;
+      background: #273c75;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    button.upload-btn:hover {
+      background: #192a56;
+      transform: scale(1.05);
+    }
+
+    #preview-container {
       margin-top: 20px;
     }
+
+    #preview-container img {
+      max-width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: none;
+      margin: 0 auto;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2f3640;
+    }
+
+    #gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
     #gallery img {
       width: 100%;
-      height: 200px;
+      height: 180px;
       object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    #gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      .upload-container { padding: 20px; }
     }
   </style>
 </head>
 <body>
-  <h1>Upload and View Files</h1>
+  <h1>Upload Profile picture</h1>
 
-  <!-- Upload form -->
-  <form id="uploadForm" enctype="multipart/form-data">
-    <input type="file" title="helo" name="file" />
-    <button type="submit">Upload</button>
-  </form>
+  <div class="upload-container">
+    <form id="uploadForm" enctype="multipart/form-data">
+      <input type="file" id="fileInput" name="file" accept="image/*" />
+      <label for="fileInput" class="file-label">Choose File</label>
+      <div id="preview-container">
+        <img id="preview" alt="Selected Image Preview" />
+      </div>
+      <button type="submit" class="upload-btn">Upload</button>
+    </form>
+  </div>
 
-  <!-- <h2>Uploaded Files:</h2>
+  <!-- <h2>Uploaded Files</h2>
   <div id="gallery"></div> -->
 
   <script>
+    const fileInput = document.getElementById("fileInput");
+    const preview = document.getElementById("preview");
+
+    // Show image preview when file is selected
+    fileInput.addEventListener("change", () => {
+      const file = fileInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          preview.src = e.target.result;
+          preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      } else {
+        preview.src = "";
+        preview.style.display = "none";
+      }
+    });
+
     // Upload file
     document.getElementById("uploadForm").addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -47,7 +167,10 @@
         });
 
         const data = await res.json();
-        window.location.href='/index.html';
+        preview.src = ""; // Clear preview after upload
+        preview.style.display = "none";
+        //<!-- loadImages();--> // Reload gallery 
+        window.location.href = "/index.html";
       } catch (err) {
         console.error("Upload failed:", err);
       }
