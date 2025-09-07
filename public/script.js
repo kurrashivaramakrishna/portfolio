@@ -288,3 +288,19 @@ async function loadLatestProfileImage() {
 
 // Run once on page load
 window.addEventListener("DOMContentLoaded", loadLatestProfileImage);
+
+function loadPage(url) {
+  fetch(url)
+    .then(response => {
+      if (!response.ok) throw new Error('Network response was not ok');
+      return response.text();
+    })
+    .then(data => {
+      document.getElementById('main-content').innerHTML = data;
+    })
+    .catch(error => {
+      document.getElementById('main-content').innerHTML = "<p>Content failed to load.</p>";
+      console.error('Error loading page:', error);
+    });
+}
+

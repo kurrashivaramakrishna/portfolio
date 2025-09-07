@@ -1,0 +1,74 @@
+
+    <link rel="stylesheet" type="text/css" href="/style.css">
+
+<canvas id="rainCanvas"></canvas>
+    <canvas id="dotsCanvas"></canvas>
+
+    <label class="switch">
+      <span class="label-text"></span>
+      <input type="checkbox" id="darkModeSwitch" placeholder="dark" />
+      <span class="slider round"></span>
+    </label>
+
+    <div class="content-wrapper" id="Content-wrapper">
+      <a href="/images/Shiva_Rama_Krishna-Software_Engineer.pdf" id="download-button" download>
+        <button class="btn"><i class="fa fa-download"></i> Download</button>
+      </a>
+       <div id="dropdown-menu">
+        <button class="menu-button" onclick="toggleMenu(this)">☰</button>
+       <div id="menu-content" class="menu-content">
+          <a href="/index.html" class="menu-Elements">Home</a>
+          <a href="/pages/skills" class="menu-Elements">Skills</a>
+          <a href="/pages/projects" class="menu-Elements">Projects</a>
+          <a href="/pages/experience" class="menu-Elements" >Experience</a>
+          <a href="/pages/Achievements" class="menu-Elements">Achievements</a>
+          <a href="/pages/certifications" class="menu-Elements">Certifications</a>
+          <a href="/pages/interests" class="menu-Elements">Interests</a>
+          <a href="/pages/Contact" class="menu-Elements">Contact</a>
+        </div>
+      </div>
+
+      <div id="my-profile" class="menu-options">
+        <!-- <img
+          src="/file/1"
+          alt="Profile Image"
+           -->
+        <!-- <img src="/file/1" alt="Profile Picture" id="profile-image" /> -->
+                <img src="../images/myprofile.jpg" alt="Profile Picture" onclick="window.location.href='/index.html';" id="profile-image" />
+
+        <span
+          class="upload-btn"
+          onclick="window.location.href='/pages/signin';"
+        >
+          <i class="fas fa-plus"></i>
+        </span>
+
+        <!-- <div id="profile-image"> -->
+
+        <!-- </div> -->
+        <h1 id="username">Kurra Shiva Rama Krishna</h1>
+        <p id="bio">
+          A passionate software developer with a keen interest in web
+          technologies and a strong foundation in computer science principles.
+        </p>
+        <p id="location">Location: Middlesbrough, England</p>
+        </div>
+    
+   <section id="skills" class="menu-options">
+  <h2>How I Learned My Skills</h2>
+  <p>I began learning programming during my Bachelor's degree, but my real journey started during my Master's in Computer Science. Through hands-on projects, self-guided courses (like on Coursera, Udemy, and freeCodeCamp), and daily coding practice, I built a strong foundation in web development, AI, and systems programming.</p>
+  <p>I mastered HTML, CSS, JavaScript through project-based learning and built full websites. I advanced to Node.js and MySQL to manage backend APIs and databases. I learned Python for data science and AI applications, especially with PyTorch and OpenCV. I gained solid knowledge of YOLOv8, React, and JWT authentication.</p>
+
+  <h3>Skill Proficiency & Usage</h3>
+  <div class="skills-grid" class="menu-options">
+    <div class="skill-item"><strong>HTML/CSS</strong><br>Advanced<br>Portfolio Website, Resume Builder</div>
+    <div class="skill-item"><strong>JavaScript</strong><br>Advanced<br>Portfolio, Animation, Form Validation</div>
+    <div class="skill-item"><strong>Node.js</strong><br>Intermediate<br>REST API, Authentication</div>
+    <div class="skill-item"><strong>MySQL</strong><br>Intermediate<br>Data storage for users, contact forms</div>
+    <div class="skill-item"><strong>React.js</strong><br>Intermediate<br>Single Page Applications (SPA)</div>
+    <div class="skill-item"><strong>Python</strong><br>Advanced<br>AI Snake Game, Malaria Detection</div>
+    <div class="skill-item"><strong>PyTorch</strong><br>Intermediate<br>AI Reinforcement Learning</div>
+    <div class="skill-item"><strong>YOLOv8 / YOLOv11</strong><br>Intermediate<br>Object Detection in Self-Driving Cars</div>
+  </div>
+
+  <script src="/script.js"></script>
